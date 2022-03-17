@@ -1,22 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# nextJs-first-page
 
-## Getting Started
+Esse é um projeto [Next.js](https://nextjs.org/) iniciado com [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-First, run the development server:
+## Run Locally
+
+Clone o projeto
 
 ```bash
-npm run dev
-# or
-yarn dev
+  git clone https://github.com/Crhist0/nextJs-first-page.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Navegue até o diretório
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```bash
+  cd nextJs-first-page
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Instale as dependencias
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```bash
+  npm install
+```
+
+Inicie o servidor
+
+```bash
+  npm run dev
+```
+
+Abra [http://localhost:3000](http://localhost:3000) no seu navegador para ver o resultado.
+
+
+## Lessons Learned
+
+Esse projeto está em andamento, o objetivo é dar o primeiro passo em NextJs.
+
 
 ## Learn More
 
