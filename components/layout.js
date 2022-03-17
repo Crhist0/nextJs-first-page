@@ -1,39 +1,49 @@
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from './layout.module.css';
 import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
-
-const name = 'Crhistian';
-export const siteTitle = 'Um Next.js Website';
+import GetProfile from '../lib/profile';
 
 export default function Layout({ children, home }) {
+  const [isLoading, setLoading] = useState(false);
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    setLoading(true);
+    GetProfile(process.env.USER).then((user) => {
+      setData(user);
+      setLoading(false);
+    });
+  }, []);
+
+  if (data === null) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItens: 'center' }}>
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
   return (
     <div className={styles.container}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
-        <meta name="description" content="Learn how to build a personal website using Next.js" />
-        <meta
-          property="og:image"
-          content={`https://og-image.vercel.app/${encodeURI(
-            siteTitle
-          )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
-        />
-        <meta name="og:title" content={siteTitle} />
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="description" content={data.bio} />
+        <meta name="og:" content={data.login} />
       </Head>
       <header className={styles.header}>
         {home ? (
           <>
             <Image
               priority
-              src="/images/profile.jpg"
+              src={data.avatar_url}
               className={utilStyles.borderCircle}
               height={144}
               width={144}
               alt={name}
             />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
+            <h1 className={utilStyles.heading2Xl}>{data.name}</h1>
           </>
         ) : (
           <>
@@ -41,17 +51,17 @@ export default function Layout({ children, home }) {
               <a>
                 <Image
                   priority
-                  src="/images/profile.jpg"
+                  src={data.avatar_url}
                   className={utilStyles.borderCircle}
                   height={108}
                   width={108}
-                  alt={name}
+                  alt={data.name}
                 />
               </a>
             </Link>
             <h2 className={utilStyles.headingLg}>
               <Link href="/">
-                <a className={utilStyles.colorInherit}>{name}</a>
+                <a className={utilStyles.colorInherit}>{data.name}</a>
               </Link>
             </h2>
           </>
