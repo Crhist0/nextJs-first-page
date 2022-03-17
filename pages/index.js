@@ -4,8 +4,21 @@ import utilStyles from '../styles/utils.module.css';
 import { getSortedPostsData } from '../lib/posts';
 import GetRepos from '../lib/repos';
 import GetProfile from '../lib/profile';
-import GetReadmeRepo from '../lib/readmeRepo';
+import GetUserReadme from '../lib/userReadme';
 import { useState, useEffect } from 'react';
+import BasicCard from '../components/card';
+
+export function sortByProp(prop) {
+  return function (a, b) {
+    if (a[prop] > b[prop]) {
+      return -1;
+    }
+    if (a[prop] < b[prop]) {
+      return 1;
+    }
+    return 0;
+  };
+}
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
@@ -35,7 +48,7 @@ export default function Home({ allPostsData }) {
     GetRepos(process.env.USER).then((repos) => {
       setRepos(repos.filter((repo) => repo));
       if (repos.filter((repo) => repo.name === process.env.USER).length > 0) {
-        GetReadmeRepo(process.env.USER).then((content) => {
+        GetUserReadme(process.env.USER).then((content) => {
           setReadmeRepo(content);
         });
       }
@@ -75,15 +88,18 @@ export default function Home({ allPostsData }) {
       <h2 className={utilStyles.headingLg}>Repositórios</h2>
       <section id="content" className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <ul className={utilStyles.list}>
-          {repos.map(({ id, pushed_at, name }) => (
-            <li className={utilStyles.listItem} key={id}>
-              {name}
-              <br />
-              {id}
-              <br />
-              {pushed_at}
-            </li>
-          ))}
+          {repos
+            .sort(sortByProp('stargazers_count'))
+            .map(({ id, pushed_at, name, description, html_url }) => (
+              <li className={utilStyles.listItem} key={id}>
+                <BasicCard
+                  name={name}
+                  pushed_at={pushed_at}
+                  description={description}
+                  url={html_url}
+                />
+              </li>
+            ))}
         </ul>
       </section>
     </Layout>
