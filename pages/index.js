@@ -8,6 +8,15 @@ import GetUserReadme from '../lib/userReadme';
 import { useState, useEffect } from 'react';
 import BasicCard from '../components/card';
 
+import { Base64 } from 'js-base64';
+
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
+import rehypeRaw from 'rehype-raw';
+import rehypeStringify from 'rehype-stringify';
+import rehypeSanitize from 'rehype-sanitize';
+
 export function sortByProp(prop) {
   return function (a, b) {
     if (a[prop] > b[prop]) {
@@ -46,10 +55,17 @@ export default function Home({ allPostsData }) {
       // setLoading(false);
     });
     GetRepos(process.env.USER).then((repos) => {
-      setRepos(repos.filter((repo) => repo));
+      setRepos(repos);
       if (repos.filter((repo) => repo.name === process.env.USER).length > 0) {
-        GetUserReadme(process.env.USER).then((content) => {
-          setReadmeRepo(content);
+        GetUserReadme(process.env.USER).then(async (content) => {
+          const processedContent = await unified()
+            .use(remarkParse)
+            .use(remarkRehype, { allowDangerousHtml: true })
+            .use(rehypeRaw) // *Parse* the raw HTML strings embedded in the tree
+            .use(rehypeSanitize)
+            .use(rehypeStringify)
+            .process(Base64.decode(content));
+          setReadmeRepo(processedContent);
         });
       }
     });
@@ -74,8 +90,12 @@ export default function Home({ allPostsData }) {
     );
   }
 
-  console.log(repos);
-
+  console.log('repos:', repos);
+  console.log('readmeRepo:', readmeRepo);
+  // const processedContent = await remark()
+  //   .use(html)
+  //   .process(matterResult.content)
+  // const contentHtml = processedContent.toString()
   return (
     <Layout home>
       <Head>
@@ -84,7 +104,7 @@ export default function Home({ allPostsData }) {
       <section className={utilStyles.headingMd}>
         <p style={{ textAlign: 'center' }}>{data.bio}</p>
       </section>
-      {/* <div dangerouslySetInnerHTML={createHTML(atob(readmeRepo))} /> */}
+      <div dangerouslySetInnerHTML={createHTML(readmeRepo)} />
       <h2 className={utilStyles.headingLg}>Repositórios</h2>
       <section id="content" className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <ul className={utilStyles.list}>
