@@ -6,6 +6,10 @@ Esse é um projeto [Next.js](https://nextjs.org/) iniciado com [`create-next-app
 
 Teste o demo [aqui](https://next-js-first-page-m5bhwvazi-crhist0.vercel.app/) (talvez precise esperar uns 30 segundos o servidor heroku acordar 😅)
 
+## Features
+
+- Páginas alimentadas automaticamente via api externa do github
+
 ## Run Locally
 
 Clone o projeto
