@@ -26,7 +26,7 @@ Instale as dependencias
   npm install
 ```
 
-Crie um arquivo .env.local com seu github login
+Crie um arquivo .env.local na raiz do projeto com o seu github login
 
 ```env
 USER=SEU_LOGIN_AQUI
