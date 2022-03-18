@@ -16,10 +16,9 @@ export default function BasicCard(props) {
     >
       <Card
         sx={{
-          minWidth: 275,
+          transition: '0.2s',
           textShadow:
             '-webkit-box-shadow: 0px 0px 25px -15px rgba(0,0,0,0.2);  box-shadow: 0px 0px 25px -15px rgba(0,0,0,0.2);',
-          transition: '0.2s',
           '&:hover': {
             transform: 'translateY(-2px)',
             textShadow:
