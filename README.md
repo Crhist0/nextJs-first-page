@@ -2,6 +2,10 @@
 
 Esse é um projeto [Next.js](https://nextjs.org/) iniciado com [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Demo
+
+Teste o demo [aqui](https://next-js-first-page-m5bhwvazi-crhist0.vercel.app/) (talvez precise esperar uns 30 segundos o servidor heroku acordar 😅)
+
 ## Run Locally
 
 Clone o projeto
@@ -20,6 +24,12 @@ Instale as dependencias
 
 ```bash
   npm install
+```
+
+Crie um arquivo .env.local com seu github login
+
+```env
+USER=SEU_LOGIN_AQUI
 ```
 
 Inicie o servidor
