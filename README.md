@@ -4,7 +4,7 @@ Esse é um projeto [Next.js](https://nextjs.org/) iniciado com [`create-next-app
 
 ## Demo
 
-Teste o demo [aqui](https://next-js-first-page-m5bhwvazi-crhist0.vercel.app/) (talvez precise esperar uns 30 segundos o servidor heroku acordar 😅)
+Teste o demo [aqui](https://next-js-first-page-m5bhwvazi-crhist0.vercel.app/) 
 
 ## Features
 
